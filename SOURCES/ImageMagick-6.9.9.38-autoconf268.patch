@@ -1,0 +1,21 @@
+diff -rup ImageMagick-6.9.9-38.orig/configure.ac ImageMagick-6.9.9-38/configure.ac
+--- ImageMagick-6.9.9-38.orig/configure.ac	2018-03-11 21:49:01.000000000 +0000
++++ ImageMagick-6.9.9-38/configure.ac	2018-08-08 11:06:14.510691798 +0000
+@@ -19,7 +19,7 @@
+ #  notice and this notice are preserved.
+ 
+ # Process this file with autoconf to create configure script.
+-AC_PREREQ(2.69)
++AC_PREREQ(2.68)
+ 
+ # ==============================================================================
+ # ImageMagick release.
+@@ -49,7 +49,7 @@ AC_CONFIG_HEADERS([config/config.h])
+ AX_PREFIX_CONFIG_H([magick/magick-baseconfig.h],[MagickCore])
+ AC_CANONICAL_SYSTEM
+ AC_CANONICAL_TARGET
+-AM_INIT_AUTOMAKE([foreign color-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
++AM_INIT_AUTOMAKE([foreign color-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-xz dist-zip tar-ustar])
+ AM_SILENT_RULES([yes])
+ 
+ #

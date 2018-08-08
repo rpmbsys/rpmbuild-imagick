@@ -10,7 +10,7 @@ Epoch:			1
 Epoch:			0
 %endif
 Version:		%{VER}.%{Patchlevel}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		An X application for displaying and manipulating images
 Group:		Applications/Multimedia
 License:		ImageMagick
@@ -29,15 +29,21 @@ BuildRequires:	ghostscript-devel
 %endif
 BuildRequires:	djvulibre-devel
 BuildRequires:	libwmf-devel, jasper-devel, libtool-ltdl-devel
-BuildRequires:	libX11-devel, libXext-devel, libXt-devel
 BuildRequires:	lcms2-devel, libxml2-devel, librsvg2-devel, OpenEXR-devel
 BuildRequires:	fftw-devel, OpenEXR-devel, libwebp-devel
+%if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:	jbigkit-devel
+%endif
 BuildRequires:	openjpeg2-devel >= 2.1.0
-BuildRequires:	autoconf automake gcc gcc-c++
+%if 0%{?fedora} || 0%{?rhel} >= 7
+BuildRequires:	autoconf
+%else
+BuildRequires:	autoconf268
+%endif
+BuildRequires:	automake gcc gcc-c++
 
 Patch0:		ImageMagick-6.9.9-3-multiarch-implicit-pkgconfig-dir.patch
-
+Patch1:         ImageMagick-6.9.9.38-autoconf268.patch
 
 %description
 ImageMagick is an image display and manipulation tool for the X
@@ -64,7 +70,6 @@ Requires:	libgs-devel
 %else
 Requires:	ghostscript-devel
 %endif
-Requires:	libX11-devel, libXext-devel, libXt-devel
 Requires:	bzip2-devel, freetype-devel, libtiff-devel, libjpeg-devel, lcms2-devel
 Requires:	libwebp-devel, OpenEXR-devel, jasper-devel, pkgconfig
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -157,6 +162,9 @@ however.
 %setup -q -n %{name}-%{VER}-%{Patchlevel}
 
 %patch0 -p1 -b .multiarch-implicit-pkgconfig-dir
+%if 0%{?rhel} < 7
+%patch1 -p1
+%endif
 
 
 # for %%doc
@@ -165,13 +173,19 @@ cp -p Magick++/demo/*.cpp Magick++/demo/*.miff Magick++/examples
 
 
 %build
+%if 0%{?fedora} || 0%{?rhel} >= 7
 autoconf -f -i
+%else
+export AUTOCONF=/usr/bin/autoconf268
+export AUTOHEADER=/usr/bin/autoconf268
+autoreconf268
+%endif
+
 %configure \
 	--enable-shared \
 	--disable-static \
 	--with-modules \
 	--with-perl \
-	--with-x \
 	--with-threads \
 	--with-magick_plus_plus \
 	--with-gslib \
@@ -183,7 +197,9 @@ autoconf -f -i
 	--with-perl-options="INSTALLDIRS=vendor %{?perl_prefix} CC='%__cc -L$PWD/magick/.libs' LDDLFLAGS='-shared -L$PWD/magick/.libs'" \
 	--without-dps \
 	--without-gcc-arch \
+%if 0%{?fedora} || 0%{?rhel} >= 7
 	--with-jbig \
+%endif
 	--with-openjp2
 
 # Do *NOT* use %%{?_smp_mflags}, this causes PerlMagick to be silently misbuild
@@ -328,6 +344,10 @@ make %{?_smp_mflags} check
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Wed Aug  8 2018 Alexander Ursu <alexander.ursu@gmail.com> - 6.9.9.38-2
+- removed X
+- adapted to CentOS 6 (autoconf268)
+
 * Mon Mar 12 2018 Michael Cronenworth <mike@cchtml.com> - 1:6.9.9.38-1
 - Update to 6.9.9-38
 
