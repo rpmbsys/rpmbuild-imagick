@@ -1,0 +1,35 @@
+version: "3.4"
+services:
+  centos6imagickbase:
+    build:
+      context: .
+      dockerfile: Dockerfile.6-base
+    image: aursu/imagickbuild:6-base
+  centos7imagickbase:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+    image: aursu/imagickbuild:7-base
+  centos6imagickbuild:
+    volumes:
+      - rpms:/home/centos/rpmbuild/SRPMS
+      - rpm6:/home/centos/rpmbuild/RPMS
+    build:
+      context: .
+      dockerfile: Dockerfile.el6
+    image: aursu/imagickbuild:el6
+  centos7imagickbuild:
+    volumes:
+      - rpms:/home/centos/rpmbuild/SRPMS
+      - rpm7:/home/centos/rpmbuild/RPMS
+    build:
+      context: .
+    image: aursu/imagickbuild:el7
+
+volumes:
+  rpms:
+    name: rpms
+  rpm6:
+    name: rpm6
+  rpm7:
+    name: rpm7
