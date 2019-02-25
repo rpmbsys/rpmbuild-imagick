@@ -1,23 +1,24 @@
-%global VER 6.9.9
-%global Patchlevel 38
+%global VER 6.9.10
+%global Patchlevel 28
 
 Name:		ImageMagick
 %if 0%{?fedora} >= 27
 # ImageMagick 7 was briefly sent to Fedora 27 and Rawhide in 2017;
 # the epoch was necessary to downgrade them back to 6.
-Epoch:			1
+Epoch:		1
 %else
-Epoch:			0
+Epoch:		0
 %endif
-Version:		%{VER}.%{Patchlevel}
-Release:		2%{?dist}
-Summary:		An X application for displaying and manipulating images
+Version:	%{VER}.%{Patchlevel}
+Release:	1%{?dist}
+Summary:	An X application for displaying and manipulating images
 Group:		Applications/Multimedia
-License:		ImageMagick
-Url:			http://www.imagemagick.org/
-Source0:		https://www.imagemagick.org/download/%{name}-%{VER}-%{Patchlevel}.tar.xz
+License:	ImageMagick
+Url:		http://www.imagemagick.org/
+Source0:	https://www.imagemagick.org/download/%{name}-%{VER}-%{Patchlevel}.tar.xz
 
-Requires:		%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Patch0:		ImageMagick-6.9.9-3-multiarch-implicit-pkgconfig-dir.patch
+Patch1:		ImageMagick-6.9.9.38-autoconf268.patch
 
 BuildRequires:	bzip2-devel, freetype-devel, libjpeg-devel, libpng-devel
 BuildRequires:	libtiff-devel, giflib-devel, zlib-devel, perl-devel >= 5.8.1
@@ -42,8 +43,7 @@ BuildRequires:	autoconf268
 %endif
 BuildRequires:	automake gcc gcc-c++
 
-Patch0:		ImageMagick-6.9.9-3-multiarch-implicit-pkgconfig-dir.patch
-Patch1:         ImageMagick-6.9.9.38-autoconf268.patch
+Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description
 ImageMagick is an image display and manipulation tool for the X
@@ -220,6 +220,9 @@ find %{buildroot} -name "*.bs" |xargs rm -f
 find %{buildroot} -name ".packlist" |xargs rm -f
 find %{buildroot} -name "perllocal.pod" |xargs rm -f
 
+# Do NOT remove .la files for codecs
+# https://bugzilla.novell.com/show_bug.cgi?id=579798
+
 # perlmagick: build files list
 echo "%defattr(-,root,root,-)" > perl-pkg-files
 find %{buildroot}/%{_libdir}/perl* -type f -print \
@@ -283,8 +286,8 @@ make %{?_smp_mflags} check
 
 %files libs
 %doc LICENSE NOTICE AUTHORS.txt QuickStart.txt
-%{_libdir}/libMagickCore-6.Q16.so.5*
-%{_libdir}/libMagickWand-6.Q16.so.5*
+%{_libdir}/libMagickCore-6.Q16.so.6*
+%{_libdir}/libMagickWand-6.Q16.so.6*
 %{_libdir}/%{name}-%{VER}
 %{_datadir}/%{name}-6
 %exclude %{_libdir}/%{name}-%{VER}/modules-Q16/coders/djvu.*
@@ -344,6 +347,9 @@ make %{?_smp_mflags} check
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Mon Feb 18 2019 Pete Walter <pwalter@fedoraproject.org> - 1:6.9.10.28-1
+- Update to 6.9.10.28
+
 * Wed Aug  8 2018 Alexander Ursu <alexander.ursu@gmail.com> - 6.9.9.38-2
 - removed X
 - adapted to CentOS 6 (autoconf268)
@@ -1182,7 +1188,7 @@ make %{?_smp_mflags} check
 * Thu Apr  1 1999 Bill Nottingham <notting@redhat.com>
 - add more files. Oops.
 
-* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com> 
+* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com>
 - auto rebuild in the new build environment (release 2)
 
 * Wed Mar 10 1999 Bill Nottingham <notting@redhat.com>
