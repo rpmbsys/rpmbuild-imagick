@@ -10,21 +10,19 @@ services:
       context: .
       dockerfile: Dockerfile.base
     image: aursu/imagickbuild:7-base
-  centos6imagickbuild:
+  centos6imagick:
     volumes:
       - rpms:/home/centos/rpmbuild/SRPMS
       - rpm6:/home/centos/rpmbuild/RPMS
     build:
       context: .
       dockerfile: Dockerfile.el6
-    image: aursu/imagickbuild:el6
-  centos7imagickbuild:
+  centos7imagick:
     volumes:
       - rpms:/home/centos/rpmbuild/SRPMS
       - rpm7:/home/centos/rpmbuild/RPMS
     build:
       context: .
-    image: aursu/imagickbuild:el7
 
 volumes:
   rpms:
