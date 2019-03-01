@@ -23,7 +23,7 @@ jobs:
           command: |
             git submodule sync
             git submodule update --init
-     - run:
+      - run:
           name: Pull images for RPM build docker services
           command: |
             docker-compose -f rpmbuild/docker-compose.yml pull
