@@ -10,7 +10,7 @@ Epoch:		1
 Epoch:		0
 %endif
 Version:	%{VER}.%{Patchlevel}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	An X application for displaying and manipulating images
 Group:		Applications/Multimedia
 License:	ImageMagick
@@ -23,14 +23,8 @@ Patch1:		ImageMagick-6.9.9.38-autoconf268.patch
 BuildRequires:	bzip2-devel, freetype-devel, libjpeg-devel, libpng-devel
 BuildRequires:	libtiff-devel, giflib-devel, zlib-devel, perl-devel >= 5.8.1
 BuildRequires:	perl-generators
-%if 0%{?fedora} > 27
-BuildRequires:	libgs-devel, ghostscript-x11
-%else
-BuildRequires:	ghostscript-devel
-%endif
-BuildRequires:	djvulibre-devel
 BuildRequires:	jasper-devel, libtool-ltdl-devel
-BuildRequires:	lcms2-devel, libxml2-devel, librsvg2-devel
+BuildRequires:	lcms2-devel, libxml2-devel
 BuildRequires:	fftw-devel, libwebp-devel
 %if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:	jbigkit-devel
@@ -65,11 +59,6 @@ ImageMagick-devel as well.
 Summary:	Library links and header files for ImageMagick app development
 Group:	Development/Libraries
 Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
-%if 0%{?fedora} > 27
-Requires:	libgs-devel
-%else
-Requires:	ghostscript-devel
-%endif
 Requires:	bzip2-devel, freetype-devel, libtiff-devel, libjpeg-devel, lcms2-devel
 Requires:	libwebp-devel, jasper-devel, pkgconfig
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -188,9 +177,7 @@ autoreconf268
 	--with-perl \
 	--with-threads \
 	--with-magick_plus_plus \
-	--with-gslib \
 	--with-webp \
-	--with-rsvg \
 	--with-xml \
 	--with-perl-options="INSTALLDIRS=vendor %{?perl_prefix} CC='%__cc -L$PWD/magick/.libs' LDDLFLAGS='-shared -L$PWD/magick/.libs'" \
 	--without-dps \
@@ -345,7 +332,10 @@ make %{?_smp_mflags} check
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
-* Mon Mar  4 2019 Alexander Ursu <alexander.ursu@gmail.com> - 1:6.9.10.28-2
+* Mon Mar  4 2019 Alexander Ursu <alexander.ursu@gmail.com> - 1:6.9.10.28-3
+- removed RSVG, DJVU, Ghostscript lib support
+
+* Sun Mar  3 2019 Alexander Ursu <alexander.ursu@gmail.com> - 1:6.9.10.28-2
 - removed OpenEXR
 - removed WMF support
 

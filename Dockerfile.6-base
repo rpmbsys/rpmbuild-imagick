@@ -4,16 +4,13 @@ USER root
 RUN yum -y install \
         autoconf268 \
         bzip2-devel \
-        djvulibre-devel \
         fftw-devel \
         freetype-devel \
-        ghostscript-devel \
         giflib-devel \
         jasper-devel \
         libjpeg-devel \
         lcms2-devel \
         libpng-devel \
-        librsvg2-devel \
         libtiff-devel \
         libtool-ltdl-devel \
         libwebp-devel \
