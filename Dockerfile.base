@@ -3,8 +3,10 @@ FROM aursu/rpmbuild:7-build
 USER root
 RUN yum -y install \
         bzip2-devel \
+        djvulibre-devel \
         fftw-devel \
         freetype-devel \
+        ghostscript-devel \
         giflib-devel \
         jasper-devel \
         jbigkit-devel \
