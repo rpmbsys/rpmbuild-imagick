@@ -1,5 +1,5 @@
 %global VER 6.9.10
-%global Patchlevel 28
+%global Patchlevel 67
 
 Name:		ImageMagick
 %if 0%{?fedora} >= 27
@@ -34,6 +34,7 @@ BuildRequires:	lcms2-devel, libxml2-devel
 BuildRequires:	fftw-devel, libwebp-devel
 %if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:	jbigkit-devel
+BuildRequires:  LibRaw-devel >= 0.14.8
 %endif
 BuildRequires:	openjpeg2-devel >= 2.1.0
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -195,6 +196,7 @@ autoreconf268
 	--without-gcc-arch \
 %if 0%{?fedora} || 0%{?rhel} >= 7
 	--with-jbig \
+	--with-raw \
 %endif
 	--with-openjp2
 
@@ -343,6 +345,17 @@ make %{?_smp_mflags} check
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Fri Oct 04 2019 Pete Walter <pwalter@fedoraproject.org> - 1:6.9.10.67-1
+- Update to 6.9.10.67
+
+* Sat Sep 21 2019 Pete Walter <pwalter@fedoraproject.org> - 1:6.9.10.65-1
+- Update to 6.9.10.65
+
+* Fri Sep 13 2019 Michael Cronenworth <mike@cchtml.com> - 1:6.9.10.64-1
+- Update to 6.9.10.64
+- Set threading option (https://src.fedoraproject.org/rpms/ImageMagick/pull-request/2)
+- Enable more image formats (RHBZ#1485823)
+
 * Mon Mar  4 2019 Alexander Ursu <alexander.ursu@gmail.com> - 1:6.9.10.28-3
 - removed RSVG, Ghostscript lib support
 

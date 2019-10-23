@@ -2,6 +2,7 @@ FROM aursu/rpmbuild:7-build
 
 USER root
 RUN yum -y install \
+        LibRaw-devel \
         bzip2-devel \
         djvulibre-devel \
         fftw-devel \
