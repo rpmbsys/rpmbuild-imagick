@@ -27,6 +27,9 @@ BuildRequires:	perl-generators
 BuildRequires:  libgs-devel
 %else
 BuildRequires:  ghostscript-devel
+%if 0%{?fedora} || 0%{?rhel} >= 7
+BuildRequires: urw-base35-fonts
+%endif
 %endif
 BuildRequires:  djvulibre-devel
 BuildRequires:	jasper-devel, libtool-ltdl-devel
