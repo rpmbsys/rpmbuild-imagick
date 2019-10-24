@@ -18,7 +18,9 @@ Url:		http://www.imagemagick.org/
 Source0:	https://www.imagemagick.org/download/%{name}-%{VER}-%{Patchlevel}.tar.xz
 
 Patch0:		ImageMagick-6.9.9-3-multiarch-implicit-pkgconfig-dir.patch
-Patch1:		ImageMagick-6.9.9.38-autoconf268.patch
+#https://github.com/ImageMagick/ImageMagick/issues/781
+Patch1:         ImageMagick-6.9.9-15-urw-fonts.patch
+Patch2:		ImageMagick-6.9.9.38-autoconf268.patch
 
 BuildRequires:	bzip2-devel, freetype-devel, libjpeg-devel, libpng-devel
 BuildRequires:	libtiff-devel, giflib-devel, zlib-devel, perl-devel >= 5.8.1
@@ -166,8 +168,11 @@ however.
 %setup -q -n %{name}-%{VER}-%{Patchlevel}
 
 %patch0 -p1 -b .multiarch-implicit-pkgconfig-dir
+%if 0%{?rhel} >= 7
+%patch1 -p1 -b .urw-fonts
+%endif
 %if 0%{?rhel} < 7
-%patch1 -p1
+%patch2 -p1
 %endif
 
 
