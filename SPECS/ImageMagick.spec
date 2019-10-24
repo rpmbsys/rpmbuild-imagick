@@ -18,8 +18,6 @@ Url:		http://www.imagemagick.org/
 Source0:	https://www.imagemagick.org/download/%{name}-%{VER}-%{Patchlevel}.tar.xz
 
 Patch0:		ImageMagick-6.9.9-3-multiarch-implicit-pkgconfig-dir.patch
-#https://github.com/ImageMagick/ImageMagick/issues/781
-Patch1:         ImageMagick-6.9.9-15-urw-fonts.patch
 Patch2:		ImageMagick-6.9.9.38-autoconf268.patch
 
 BuildRequires:	bzip2-devel, freetype-devel, libjpeg-devel, libpng-devel
@@ -29,9 +27,6 @@ BuildRequires:	perl-generators
 BuildRequires:  libgs-devel
 %else
 BuildRequires:  ghostscript-devel
-%if 0%{?fedora} || 0%{?rhel} >= 7
-BuildRequires: urw-base35-fonts
-%endif
 %endif
 BuildRequires:  djvulibre-devel
 BuildRequires:	jasper-devel, libtool-ltdl-devel
@@ -168,9 +163,6 @@ however.
 %setup -q -n %{name}-%{VER}-%{Patchlevel}
 
 %patch0 -p1 -b .multiarch-implicit-pkgconfig-dir
-%if 0%{?rhel} >= 7
-%patch1 -p1 -b .urw-fonts
-%endif
 %if 0%{?rhel} < 7
 %patch2 -p1
 %endif
@@ -267,13 +259,10 @@ multilibFileVersions %{buildroot}%{_includedir}/%{name}-6/magick/magick-config.h
 multilibFileVersions %{buildroot}%{_includedir}/%{name}-6/magick/magick-baseconfig.h
 multilibFileVersions %{buildroot}%{_includedir}/%{name}-6/magick/version.h
 
-
-# Fonts must be packaged separately. It does not have matter and demos work without it.
-rm PerlMagick/demo/Generic.ttf
-
 %check
 export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 make %{?_smp_mflags} check
+rm PerlMagick/demo/Generic.ttf
 
 %post libs -p /sbin/ldconfig
 
