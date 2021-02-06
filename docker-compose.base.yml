@@ -1,12 +1,9 @@
 version: "3.4"
 services:
-  centos6imagickbase:
-    build:
-      context: .
-      dockerfile: Dockerfile.6-base
-    image: aursu/imagickbuild:6-base
   centos7imagickbase:
     build:
       context: .
       dockerfile: Dockerfile.base
-    image: aursu/imagickbuild:7-base
+      args:
+        centos: $OS7
+    image: aursu/libwebpbuild:${OS7}-base

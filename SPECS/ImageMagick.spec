@@ -1,5 +1,5 @@
-%global VER 6.9.10
-%global Patchlevel 67
+%global VER 6.9.11
+%global Patchlevel 27
 
 Name:		ImageMagick
 %if 0%{?fedora} >= 27
@@ -10,14 +10,13 @@ Epoch:		1
 Epoch:		0
 %endif
 Version:	%{VER}.%{Patchlevel}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	An X application for displaying and manipulating images
 Group:		Applications/Multimedia
 License:	ImageMagick
 Url:		http://www.imagemagick.org/
 Source0:	https://www.imagemagick.org/download/%{name}-%{VER}-%{Patchlevel}.tar.xz
 
-Patch0:		ImageMagick-6.9.9-3-multiarch-implicit-pkgconfig-dir.patch
 Patch2:		ImageMagick-6.9.9.38-autoconf268.patch
 
 BuildRequires:	bzip2-devel, freetype-devel, libjpeg-devel, libpng-devel
@@ -66,13 +65,6 @@ ImageMagick-devel as well.
 Summary:	Library links and header files for ImageMagick app development
 Group:	Development/Libraries
 Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
-%if 0%{?fedora} > 27
-Requires:      libgs-devel
-%else
-Requires:      ghostscript-devel
-%endif
-Requires:	bzip2-devel, freetype-devel, libtiff-devel, libjpeg-devel, lcms2-devel
-Requires:	libwebp-devel, jasper-devel, pkgconfig
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
@@ -162,7 +154,6 @@ however.
 %prep
 %setup -q -n %{name}-%{VER}-%{Patchlevel}
 
-%patch0 -p1 -b .multiarch-implicit-pkgconfig-dir
 %if 0%{?rhel} < 7
 %patch2 -p1
 %endif
@@ -342,6 +333,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Tue Aug 11 2020 Michael Cronenworth <mike@cchtml.com> - 1:6.9.11.27-1
+- Update to 6.9.11.27
+
 * Fri Oct 04 2019 Pete Walter <pwalter@fedoraproject.org> - 1:6.9.10.67-1
 - Update to 6.9.10.67
 
