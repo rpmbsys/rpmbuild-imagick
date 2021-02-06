@@ -6,4 +6,4 @@ services:
       dockerfile: Dockerfile.base
       args:
         centos: $OS7
-    image: aursu/libwebpbuild:${OS7}-base
+    image: aursu/imagickbuild:${OS7}-base
