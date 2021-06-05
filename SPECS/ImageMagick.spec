@@ -331,7 +331,7 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
-* Fri Jun  4 2021 Alexander Ursu <alexander.ursu@gmail.com> - 1:6.9.12.14-1
+* Fri Jun 04 2021 Alexander Ursu <alexander.ursu@gmail.com> - 1:6.9.12.14-1
 - Update to 6.9.12.14
 
 * Tue Aug 11 2020 Michael Cronenworth <mike@cchtml.com> - 1:6.9.11.27-1
