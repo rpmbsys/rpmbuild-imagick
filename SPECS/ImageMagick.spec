@@ -33,7 +33,7 @@ BuildRequires:  ghostscript-devel
 BuildRequires:  djvulibre-devel
 BuildRequires:	jasper-devel, libtool-ltdl-devel
 BuildRequires:	lcms2-devel, libxml2-devel
-BuildRequires:	fftw-devel, libwebp-devel
+BuildRequires:	fftw-devel, libwebp-devel >= 0.4.1
 %if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:	jbigkit-devel
 BuildRequires:  LibRaw-devel >= 0.14.8
@@ -180,6 +180,7 @@ export CFLAGS="%{optflags} -DIMPNG_SETJMP_IS_THREAD_SAFE"
 %configure \
 	--enable-shared \
 	--disable-static \
+  --with-fftw \
 	--with-modules \
 	--with-perl \
 	--with-threads \

@@ -17,13 +17,16 @@ RUN yum -y install \
         libpng-devel \
         libtiff-devel \
         libtool-ltdl-devel \
-        libwebp-devel \
         libxml2-devel \
         openjpeg2-devel \
         perl-devel \
         perl-generators \
         zlib-devel \
-    && yum clean all && rm -rf /var/cache/yum
+    && yum clean all && rm -rf /var/cache/yum /var/cache/dnf
+
+RUN yum -y --disablerepo=* --enablerepo=bintray-custom install \
+        "libwebp-devel >= 0.4.1" \
+    && yum clean all && rm -rf /var/cache/yum /var/cache/dnf
 
 COPY SOURCES ${BUILD_TOPDIR}/SOURCES
 COPY SPECS ${BUILD_TOPDIR}/SPECS
