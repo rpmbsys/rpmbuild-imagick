@@ -1,4 +1,4 @@
-%global VERSION  6.9.12
+%global VER  6.9.12
 %global Patchlevel  14
 
 %define _debugsource_template %{nil}
