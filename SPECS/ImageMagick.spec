@@ -313,7 +313,7 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %files c++
 %doc Magick++/AUTHORS Magick++/ChangeLog Magick++/NEWS Magick++/README
 %doc www/Magick++/COPYING
-%{_libdir}/libMagick++-6.Q16.so.8*
+%{_libdir}/libMagick++-6.Q16.so.9*
 
 %files c++-devel
 %doc Magick++/examples
