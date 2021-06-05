@@ -1,6 +1,9 @@
 %global VER 6.9.11
 %global Patchlevel 27
 
+%define _debugsource_template %{nil}
+%define debug_package %{nil}
+
 Name:		ImageMagick
 %if 0%{?fedora} >= 27
 # ImageMagick 7 was briefly sent to Fedora 27 and Rawhide in 2017;

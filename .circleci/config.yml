@@ -1,15 +1,19 @@
 version: 2.1
 
 orbs:
-  docker-rpmbuild: aursu/rpmbuild@1.1.6
+  docker-rpmbuild: aursu/rpmbuild@1.1.7
+
+parameters:
+  artifactory-url:
+    description: Artifactory URL
+    type: string
+    default: https://rpmb.jfrog.io
 
 workflows:
   imagickbuild:
     jobs:
-      - docker-rpmbuild/rpmbuild:
-          package-vcs-url: https://github.com/aursu/rpmbuild-imagick
-          name: centos7imagickbuild
-          base_service: centos7imagickbase
-          build_service: centos7imagickbuild
+      - docker-rpmbuild/build:
+          name: centos7build
+          build_service: centos7build
           bintray_uploader: centos7bintray
           bintray-repo: custom
