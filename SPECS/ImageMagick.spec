@@ -270,8 +270,8 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 
 %files libs
 %doc LICENSE NOTICE AUTHORS.txt QuickStart.txt
-%{_libdir}/libMagickCore-6.Q16.so.6*
-%{_libdir}/libMagickWand-6.Q16.so.6*
+%{_libdir}/libMagickCore-6.Q16.so.7*
+%{_libdir}/libMagickWand-6.Q16.so.7*
 %{_libdir}/%{name}-%{VER}
 %{_datadir}/%{name}-6
 %exclude %{_libdir}/%{name}-%{VER}/modules-Q16/coders/djvu.*
