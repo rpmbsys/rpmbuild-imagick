@@ -1,5 +1,5 @@
-%global VER 6.9.11
-%global Patchlevel 27
+%global VERSION  6.9.12
+%global Patchlevel  14
 
 %define _debugsource_template %{nil}
 %define debug_package %{nil}
@@ -176,6 +176,7 @@ export AUTOHEADER=/usr/bin/autoconf268
 autoreconf268
 %endif
 
+export CFLAGS="%{optflags} -DIMPNG_SETJMP_IS_THREAD_SAFE"
 %configure \
 	--enable-shared \
 	--disable-static \
@@ -255,20 +256,14 @@ multilibFileVersions %{buildroot}%{_includedir}/%{name}-6/magick/version.h
 
 %check
 export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
-make %{?_smp_mflags} check
-rm PerlMagick/demo/Generic.ttf
+%make_build check
 
-%post libs -p /sbin/ldconfig
-
-%post c++ -p /sbin/ldconfig
-
-%postun libs -p /sbin/ldconfig
-
-%postun c++ -p /sbin/ldconfig
+%ldconfig_scriptlets libs
+%ldconfig_scriptlets c++
 
 
 %files
-%doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt ChangeLog Platforms.txt
+%doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt ChangeLog
 %{_bindir}/[a-z]*
 %{_mandir}/man[145]/[a-z]*
 %{_mandir}/man1/%{name}.*
@@ -336,6 +331,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Fri Jun  4 2021 Alexander Ursu <alexander.ursu@gmail.com> - 1:6.9.12.14-1
+- Update to 6.9.12.14
+
 * Tue Aug 11 2020 Michael Cronenworth <mike@cchtml.com> - 1:6.9.11.27-1
 - Update to 6.9.11.27
 
