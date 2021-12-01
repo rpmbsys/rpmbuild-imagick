@@ -22,7 +22,7 @@ Source0:	https://www.imagemagick.org/download/%{name}-%{VER}-%{Patchlevel}.tar.x
 
 Patch2:		ImageMagick-6.9.9.38-autoconf268.patch
 
-BuildRequires:	pkgconfig(bzip2), pkgconfig(freetype2), pkgconfig(libjpeg), pkgconfig(libpng)
+BuildRequires:	bzip2-devel, pkgconfig(freetype2), pkgconfig(libjpeg), pkgconfig(libpng)
 BuildRequires:	pkgconfig(libtiff-4), giflib-devel, pkgconfig(zlib), perl-devel >= 5.8.1
 BuildRequires:	perl-generators
 %if 0%{?fedora} > 27
