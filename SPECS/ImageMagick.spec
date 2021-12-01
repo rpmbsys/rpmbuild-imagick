@@ -1,5 +1,5 @@
 %global VER  6.9.12
-%global Patchlevel  14
+%global Patchlevel  31
 
 %define _debugsource_template %{nil}
 %define debug_package %{nil}
@@ -17,13 +17,13 @@ Release:	1%{?dist}
 Summary:	An X application for displaying and manipulating images
 Group:		Applications/Multimedia
 License:	ImageMagick
-Url:		http://www.imagemagick.org/
+Url:		https://legacy.imagemagick.org/
 Source0:	https://www.imagemagick.org/download/%{name}-%{VER}-%{Patchlevel}.tar.xz
 
 Patch2:		ImageMagick-6.9.9.38-autoconf268.patch
 
-BuildRequires:	bzip2-devel, freetype-devel, libjpeg-devel, libpng-devel
-BuildRequires:	libtiff-devel, giflib-devel, zlib-devel, perl-devel >= 5.8.1
+BuildRequires:	pkgconfig(bzip2), pkgconfig(freetype2), pkgconfig(libjpeg), pkgconfig(libpng)
+BuildRequires:	pkgconfig(libtiff-4), giflib-devel, pkgconfig(zlib), perl-devel >= 5.8.1
 BuildRequires:	perl-generators
 %if 0%{?fedora} > 27
 BuildRequires:  libgs-devel
@@ -31,14 +31,14 @@ BuildRequires:  libgs-devel
 BuildRequires:  ghostscript-devel
 %endif
 BuildRequires:  djvulibre-devel
-BuildRequires:	jasper-devel, libtool-ltdl-devel
-BuildRequires:	lcms2-devel, libxml2-devel
-BuildRequires:	fftw-devel, libwebp-devel >= 0.4.1
+BuildRequires:	pkgconfig(jasper), libtool-ltdl-devel
+BuildRequires:	pkgconfig(lcms2), pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(fftw3), pkgconfig(libwebp)
 %if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:	jbigkit-devel
-BuildRequires:  LibRaw-devel >= 0.14.8
+BuildRequires:  pkgconfig(libraw) >= 0.14.8
 %endif
-BuildRequires:	openjpeg2-devel >= 2.1.0
+BuildRequires:	pkgconfig(libopenjp2) >= 2.1.0
 %if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:	autoconf
 %else
